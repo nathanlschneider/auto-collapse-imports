@@ -49,13 +49,14 @@ function collapseLongBlocks(editor: vscode.TextEditor) {
     }
     let end = i - 1;
 
-    if (end - start >= 10) {
+    if (end - start >= 20) {
       startArr.push(start);
     }
   }
   console.log(startArr);
   vscode.commands.executeCommand('editor.fold', {
     levels: 1,
+    direction: 'down',
     selectionLines: startArr,
   });
 }
