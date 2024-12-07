@@ -29,6 +29,7 @@ This extension does not add any VS Code settings through the `contributes.config
 ### 0.0.1
 
 - Initial release of Auto Collapse
+<<<<<<< HEAD
 
 ---
 
@@ -52,3 +53,5 @@ You can author your README using Visual Studio Code. Here are some useful editor
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
+=======
+>>>>>>> 10d66a0 (updated readme)
