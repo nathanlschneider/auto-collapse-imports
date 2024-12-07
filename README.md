@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Auto Collapse README
 
 This is the README for your extension "Auto Collapse". This extension automatically collapses code blocks longer than 10 lines in TS, TSX, JS, and JSX files.
@@ -55,3 +56,5 @@ You can author your README using Visual Studio Code. Here are some useful editor
 **Enjoy!**
 =======
 >>>>>>> 10d66a0 (updated readme)
+=======
+>>>>>>> f7957d7 (Readme)
