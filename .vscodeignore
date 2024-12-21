@@ -3,9 +3,16 @@
 src/**
 .gitignore
 .yarnrc
-vsc-extension-quickstart.md
-**/tsconfig.json
-**/eslint.config.mjs
-**/*.map
-**/*.ts
-**/.vscode-test.*
+# vsc-extension-quickstart.md
+# **/tsconfig.json
+# **/eslint.config.mjs
+# **/*.map
+# **/*.ts
+# **/.vscode-test.*
+node_modules
+# .vscode
+# out/
+# src/
+# tsconfig.json
+# webpack.config.js
+# esbuild.js
