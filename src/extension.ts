@@ -1,64 +1,57 @@
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
-  vscode.workspace.onDidOpenTextDocument((document) => {
-    if (
-      [
-        'typescript',
-        'typescriptreact',
-        'javascript',
-        'javascriptreact',
-      ].includes(document.languageId)
-    ) {
-      const editor = vscode.window.activeTextEditor;
-      if (editor && editor.document === document) {
-        collapseLongBlocks(editor);
+  const startArr: number[] = [];
+
+  const processDocument = (document: vscode.TextDocument) => {
+    startArr.length = 0; // Clear the array
+
+    for (let i = 0; i < document.lineCount; i++) {
+      const line = document.lineAt(i);
+
+      if (line.isEmptyOrWhitespace) {
+        continue;
+      }
+
+      let start = i;
+      let importCount = 0;
+      while (i < document.lineCount && !document.lineAt(i).isEmptyOrWhitespace) {
+        if (document.lineAt(i).text.startsWith('import ')) {
+          importCount++;
+        }
+        i++;
+      }
+
+      if (importCount > 1) {
+        startArr.push(start);
       }
     }
-  });
 
-  vscode.window.onDidChangeActiveTextEditor((editor) => {
-    if (
-      editor &&
-      [
-        'typescript',
-        'typescriptreact',
-        'javascript',
-        'javascriptreact',
-      ].includes(editor.document.languageId)
-    ) {
-      collapseLongBlocks(editor);
+    vscode.commands.executeCommand('editor.fold', {
+      levels: 1,
+      direction: 'down',
+    });
+  };
+
+  const onDidOpenTextDocument = vscode.workspace.onDidOpenTextDocument((document) => {
+    if (document.languageId === 'typescript') {
+      processDocument(document);
     }
   });
-}
 
-function collapseLongBlocks(editor: vscode.TextEditor) {
-  let startArr: number[] = [];
-  const { document } = editor;
-
-  for (let i = 0; i < document.lineCount; i++) {
-    const line = document.lineAt(i);
-
-    if (line.isEmptyOrWhitespace) {
-      continue;
+  const onDidChangeActiveTextEditor = vscode.window.onDidChangeActiveTextEditor((editor) => {
+    if (editor && editor.document.languageId === 'typescript') {
+      processDocument(editor.document);
     }
+  });
 
-    let start = i;
-    while (i < document.lineCount && !document.lineAt(i).isEmptyOrWhitespace) {
-      i++;
-    }
-    let end = i - 1;
+  context.subscriptions.push(onDidOpenTextDocument, onDidChangeActiveTextEditor);
 
-    if (end - start >= 20) {
-      startArr.push(start);
-    }
+  // Process the currently active document if it exists
+  const editor = vscode.window.activeTextEditor;
+  if (editor && editor.document.languageId === 'typescript') {
+    processDocument(editor.document);
   }
-  console.log(startArr);
-  vscode.commands.executeCommand('editor.fold', {
-    levels: 1,
-    direction: 'down',
-    selectionLines: startArr,
-  });
 }
 
 export function deactivate() {}
