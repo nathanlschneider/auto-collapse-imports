@@ -3,6 +3,10 @@
   "displayName": "Auto Collapse Imports",
   "description": "Automatically collapses import blocks",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathanlschneider/auto-collapse-imports.git"
+  },
   "engines": {
     "vscode": "^1.60.0"
   },
