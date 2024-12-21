@@ -1,7 +1,7 @@
 {
-  "name": "auto-collapse",
-  "displayName": "Auto Collapse",
-  "description": "Automatically collapses code blocks longer than 10 lines in TS, TSX, JS, and JSX files.",
+  "name": "auto-collapse-imports",
+  "displayName": "Auto Collapse Imports",
+  "description": "Automatically collapses import blocks",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.60.0"
